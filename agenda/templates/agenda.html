@@ -2,7 +2,9 @@
 
 {% block content %}
     <h2>Agendamentos</h2>
-
+    <a href="compromisso/">
+    <button type="button">Novo Compromisso</button>
+    </a>
     <ul style="font-size 20px">
         {% for compromisso in compromissos %} <!-- chave e porcentagem usar comandos do python-->
             <li>{{ compromisso.titulo }} - {{ compromisso.get_data_evento }}</li> <!--duas chaves{{ é para imprimir algo do python -->

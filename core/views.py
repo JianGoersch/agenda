@@ -47,3 +47,18 @@ def lista_compromissos(request):
     compromisso = Compromisso.objects.filter(usuario=usuario)
     dados = {'compromissos':compromisso}
     return render(request, 'agenda.html', dados)
+
+
+@login_required(login_url='/login/') #loguin_requeride faz a requisição de estar logado
+def compromisso(request):
+    return render(request, 'compromisso.html')
+
+@login_required(login_url='/login/')
+def submit_compromisso(request):
+    if request.POST:
+        titulo = request.POST.get('titulo')
+        data_evento = request.POST.get('data_evento')
+        descricao = request.POST.get('descricao')
+        usuario = request.user
+        Compromisso.objects.create(titulo=titulo, data_evento=data_evento, descricao=descricao, usuario=usuario)
+    return redirect('/')
