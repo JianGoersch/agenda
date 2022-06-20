@@ -28,7 +28,8 @@ urlpatterns = [
     path('login/submit', views.submit_login),
     path('logout/',views.logout_user),
     path('agenda/compromisso/', views.compromisso),
-    path('agenda/compromisso/submit', views.submit_compromisso)
+    path('agenda/compromisso/submit', views.submit_compromisso),
+    path('agenda/compromisso/delete/<int:id_compromisso>/', views.delete_compromisso)
 
 
 ]

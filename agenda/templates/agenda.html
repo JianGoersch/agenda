@@ -7,7 +7,10 @@
     </a>
     <ul style="font-size 20px">
         {% for compromisso in compromissos %} <!-- chave e porcentagem usar comandos do python-->
-            <li>{{ compromisso.titulo }} - {{ compromisso.get_data_evento }}</li> <!--duas chaves{{ é para imprimir algo do python -->
+            <li>{{ compromisso.titulo }} - {{ compromisso.get_data_evento }} <!--duas chaves{{ é para imprimir algo do python -->
+            (<a href="compromisso/?id={{ compromisso.id }}">Editar</a> / <!-- ? para passar parâmetro no GET -->
+             <a href="compromisso/delete/{{ compromisso.id }}/">Excluir</a>)
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

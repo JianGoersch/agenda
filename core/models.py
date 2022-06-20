@@ -18,3 +18,7 @@ class Compromisso(models.Model):
 
     def get_data_evento(self):
         return self.data_evento.strftime('%d/%m/%Y %H:%M hs')
+
+#método para passar o formato e tipo correto para data na hora da editar
+    def get_data_input_evento(self):
+        return self.data_evento.strftime('%Y-%m-%dT%H:%M')
