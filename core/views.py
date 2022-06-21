@@ -5,6 +5,8 @@ from core.models import Compromisso
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from datetime import datetime, timedelta #era para o método com 1h de atraso
+from django.http.response import Http404, JsonResponse
 
 # Create your views here.
 
@@ -44,7 +46,7 @@ def submit_login(request):
 @login_required(login_url='/login/') #arroba identifica que é um decorator
 def lista_compromissos(request):
     usuario = request.user
-    compromisso = Compromisso.objects.filter(usuario=usuario)
+    compromisso = Compromisso.objects.filter(usuario=usuario) #__significa maior que no django/ __lt significa menor que
     dados = {'compromissos':compromisso}
     return render(request, 'agenda.html', dados)
 
@@ -80,7 +82,18 @@ def submit_compromisso(request):
 @login_required(login_url='/login/')
 def delete_compromisso(request, id_compromisso):
     usuario = request.user
-    compromisso = Compromisso.objects.get(id=id_compromisso)
+    try:
+        compromisso = Compromisso.objects.get(id=id_compromisso)
+    except Exception:
+        raise Http404()
     if usuario == compromisso.usuario: #validação para o user poder excluir apenas compromissos próprios
         compromisso.delete()
+    else:
+        raise Http404
     return redirect('/')
+#metodo para carregar json
+@login_required(login_url='/login/')
+def json_lista_compromisso(request):
+    usuario = request.user
+    compromisso = Compromisso.objects.filter(usuario=usuario).values('id', 'titulo')  # __significa maior que no django/ __lt significa menor que
+    return JsonResponse(list(compromisso), safe=False)

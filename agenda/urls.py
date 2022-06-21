@@ -23,6 +23,7 @@ from django.views.generic import RedirectView #segunda forma de redirecionar pag
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('agenda/', views.lista_compromissos),
+    path('agenda/lista', views.json_lista_compromisso),
     path('', RedirectView.as_view(url='/agenda/')),
     path('login/', views.login_user),
     path('login/submit', views.submit_login),
